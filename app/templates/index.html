@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignFlow</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=TT+Espina:wght@400;700&display=swap");
+        /* Global Styles */
+        body {
+            font-family: 'TT Espina', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            overflow: auto;
+            background: linear-gradient(135deg, #0b1a33, #240046);
+            position: relative;
+            padding: 20px;
+            color: ivory;
+        }
+        /* Animated Blobs */
+        .blob {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(45deg, #8A2BE2, #4B0082);
+            border-radius: 50%;
+            filter: blur(50px);
+            opacity: 0.7;
+            animation: moveBlobs 15s infinite alternate ease-in-out;
+        }
+        .blob:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            top: 30%;
+            left: 10%;
+            animation-delay: 3s;
+            background: linear-gradient(45deg, #9370DB, #6A5ACD); /* Lavender to SlateBlue */
+        }
+        .blob:nth-child(3) {
+            width: 350px;
+            height: 350px;
+            top: 60%;
+            left: 70%;
+            animation-delay: 6s;
+            background: linear-gradient(45deg, #DA70D6, #9932CC); /* Orchid to DarkOrchid */
+        }
+        .blob:nth-child(4) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 80%;
+            animation-delay: 9s;
+            background: linear-gradient(45deg, #E6E6FA, #D8BFD8); /* Lavender to Thistle */
+        }
+        .blob:nth-child(5) {
+            width: 400px;
+            height: 400px;
+            top: 70%;
+            left: 20%;
+            animation-delay: 12s;
+            background: linear-gradient(45deg, #9400D3, #4B0082); /* DarkViolet to Indigo */
+        }
+        .blob:nth-child(6) {
+            width: 280px;
+            height: 280px;
+            top: 40%;
+            left: 50%;
+            animation-delay: 15s;
+            background: linear-gradient(45deg, #BA55D3, #8A2BE2); /* MediumOrchid to BlueViolet */
+        }
+        @keyframes moveBlobs {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            50% { 
+                transform: translate3d(50px, 50px, 0) scale(1.1);
+         }
+            100% {
+                transform: translateY(50px) translateX(50px);
+            }
+        }
+        /* Glassmorphism Effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+        /* Title & Description */
+        .header-container {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-out forwards;
+        }
+        h1 {
+            font-family: 'TT Espina', sans-serif;
+            font-size: 2.5rem;
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+        p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            max-width: 80%;
+            margin: 0 auto;
+            animation: fadeIn 2s ease-out forwards;
+        }
+        /* Layout */
+        .main-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 90%;
+            max-width: 1200px;
+            gap: 20px;
+            animation: slideIn 1.5s ease-out forwards;
+        }
+        /* Video & Controls */
+        .left-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        #video-container {
+            width: 100%;
+            max-width: 640px;
+            border-radius: 15px;
+            padding: 10px;
+            animation: fadeIn 2s ease-out forwards;
+        }
+        video {
+            width: 100%;
+            border-radius: 10px;
+            filter: brightness(1) contrast(1) saturate(1); /* Default filter values */
+        }
+        #video-feed {
+            width: 100%;
+            border-radius: 10px;
+        }
+        #controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        button {
+            background: transparent;
+            border: 2px solid ivory;
+            color: ivory;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            animation: fadeIn 2.5s ease-out forwards;
+        }
+        button:hover {
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        button:active {
+            box-shadow: inset 0px 0px 5px rgba(255, 255, 255, 0.5);
+        }
+        /* Translation Box */
+        .right-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 100%;
+            animation: slideIn 2s ease-out forwards;
+        }
+        #translation-container {
+            width: 100%;
+            min-height: 350px;
+            flex-grow: 1;
+            text-align: center;
+        }
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        /* Animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes slideIn {
+            0% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .right-container {
+                width: 100%;
+            }
+            p {
+                font-size: 1rem;
+            }
+            button {
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <!-- Header -->
+    <div class="header-container">
+        <h1>SignFlow</h1>
+        <p>Experience seamless communication with our cutting-edge sign language detection technology. Connect, communicate, and bridge the gap between signed and spoken languages instantly.</p>
+    </div>
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="left-container">
+            <div id="video-container" class="glass">
+                <img id="video-feed" style="width: 100%; height: auto;" />
+            </div>
+            <div id="controls">
+                <button onclick="adjustSetting('brightness', 0.1)">Increase Brightness</button>
+                <button onclick="adjustSetting('brightness', -0.1)">Decrease Brightness</button>
+                <button onclick="adjustSetting('contrast', 0.1)">Increase Contrast</button>
+                <button onclick="adjustSetting('contrast', -0.1)">Decrease Contrast</button>
+                <button onclick="adjustSetting('saturation', 0.1)">Increase Saturation</button>
+                <button onclick="adjustSetting('saturation', -0.1)">Decrease Saturation</button>
+            </div>
+        </div>
+        <div class="right-container glass">
+            <div id="translation-container">
+                <h2>Translation:</h2>
+                <p id="translation-text">Waiting for input...</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoFeed = document.getElementById('video-feed');
+            const translationText = document.getElementById('translation-text');
+            let socket;
+            let reconnectInterval = 3000;
+    
+            function hexToByteArray(hex) {
+                let bytes = [];
+                for (let i = 0; i < hex.length; i += 2) {
+                    bytes.push(parseInt(hex.substr(i, 2), 16));
+                }
+                return new Uint8Array(bytes);
+            }
+    
+            function connectWebSocket() {
+                socket = new WebSocket("ws://127.0.0.1:8000/ws");
+    
+                socket.onopen = () => {
+                    console.log("WebSocket connection opened.");
+                    setInterval(() => {
+                        if (socket.readyState === WebSocket.OPEN) {
+                            socket.send(JSON.stringify({ type: "ping" }));
+                        }
+                    }, 25000);
+                };
+    
+                socket.onmessage = (event) => {
+                    try {
+                        const data = JSON.parse(event.data);
+                        console.log("Received data:", data);
+    
+                        if (!data.frame) {
+                            console.error("Frame data missing from WebSocket message.");
+                            return;
+                        }
+    
+                        // Convert hex to binary
+                        const frameBytes = hexToByteArray(data.frame);
+                        const blob = new Blob([frameBytes], { type: 'image/jpeg' });
+    
+                        // Ensure videoFeed exists
+                        if (!videoFeed) {
+                            console.error("Video feed element not found!");
+                            return;
+                        }
+    
+                        // Revoke old object URL and update video feed
+                        if (videoFeed.src) {
+                            URL.revokeObjectURL(videoFeed.src);
+                        }
+                        videoFeed.src = URL.createObjectURL(blob);
+    
+                        // Update translation text
+                        translationText.textContent = data.translation;
+                        console.log("Frame updated successfully.");
+                    } catch (error) {
+                        console.error("Error processing WebSocket message:", error);
+                    }
+                };
+    
+                socket.onerror = (error) => {
+                    console.error("WebSocket error:", error);
+                };
+    
+                socket.onclose = () => {
+                    console.warn("WebSocket closed. Reconnecting in", reconnectInterval / 1000, "seconds...");
+                    setTimeout(connectWebSocket, reconnectInterval);
+                };
+            }
+    
+            connectWebSocket();  // Initialize WebSocket connection
+        });
+    </script>       
+</body>
+</html>
+
